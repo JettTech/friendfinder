@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<title>FriendFinder: Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <!-- Chosen -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <!-- Boostrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- JQUERY SCRIPT -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid full" style="background-image: url(/frienshipPic.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 1925px; font-size:22px">
+        <div class="wrapper jumbotron text-center" style="opacity: 0.75; width:85%; margin: 0 auto">
+            <div class="div">
+            	<header>
+            		<h1 style="font-weight:bold; color:#337ab7">Check Out Your Results</h1>
+            		<h2 style="font-weight:bold; color:#337ab7">Who Is Your New Mate?</h2>
+            	</header>
+            <hr style="border-top:5px solid #274056; width:30%">	
+            </div>
+
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                   <h3 id="friendObject" class="text-center"></h3>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                   		<p id="friendObject" class="text-center"></p>
+                	</div>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <hr style="border-top:5px solid #274056; width:30%">
+			<div class="row">
+				<div class="col-sm-12">
+					<div>
+						<a href="/"><button id="submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-home"></span> Return Home</button></a>
+					</div>
+				</div>
+			</div>
+
+			<hr style="border-top:5px solid #274056; width:20%">
+			<footer class="footer">
+				<div class="container">
+					<a href="/api/friends" style="color:black">API Friends List (Raw JSON)</a>
+					|
+					<a href="https://github.com/JettTech" style="color:black">My GitHub Repo</a>
+			</div>
+				</div>
+			</footer>
+        </div>
+    </div>
+    <!-- !!!!!!!!!!!!!!!  MODAL (from Bootstrap) !!!!!!!!!!!!!!! -->
+    <div id="resultsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Begin Modal Content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><strong>Check Mate Baby!</strong></h2>
+                    <h3 class="modal">Here is Your Best Match</h3>
+                </div>
+                <div class="modal-body">
+                    <h2 id="matchName" class="text-center"></h2>
+                    <!-- default img: -->
+                    <img id="matchImg" src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" alt="Your Best Mate's Pic" class="text-center" style="margin: 0 auto;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>         
+                </div>
+            </div>
+            <!-- End Modal Content -->
+        </div>
+    </div>
+    <script type="text/javascript">
+        console.log("CHROME USER: You're inside the friends-results.html file...");
+
+        //Chosen CC:
+        var config = {
+            "chosen-select": {},
+            "chosen-select-deselect": { allow_single_deselect: true },
+            "chosen-select-no-single": { disable_search_threshold: 10 },
+            "chosen-select-no-results": { no_results_text: "Nothing to be found here..." },
+            "chosen-select-width": { width: "95%" },
+        };
+
+        $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
+            event.preventDefault();
+            var currentURL = window.location.origin;
+
+            $.get(currentURL +"/api/friends", function(data) {
+                //console.log(request.body);
+                console.log(data.body); //this SHOULD BE the full list of the friendsList (including the most recently added...)
+                var friendsList = data.body;
+
+                for (var i = 0; i < friendsList.length; i++) {
+                    var objectDisplay = ("<p>");
+                    objectDisplay.attr("id","friendNumber-" + i);
+                    objectDisplay.append(friendsList[i]);
+                    $("#friendObject").append(objectDisplay);
+                }
+            });
+
+            $.post(currentURL + "/api/friends", function (data){ //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
+                $("#matchName").text(data.name);
+                $("#matchImg").attr("src", data.photo);
+
+                $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
+           
+            })
+        });         
+
+    </script>
+</body>
+</html>
