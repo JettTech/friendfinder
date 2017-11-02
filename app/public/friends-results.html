@@ -101,7 +101,8 @@
         $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
             var currentURL = window.location.origin;
 
-            $.get(currentURL +"/api/friends", function(data) {
+            $.get(currentURL +"/api/friends", function(data) {  //!!!!!!!! TALK TO ANTONIO.. how do I get the friendsList data here???? !!!!
+                
                 //console.log(request.body);
                 console.log(data.body); //this SHOULD BE the full list of the friendsList (including the most recently added...)
                 var friendsList = data.body;
