@@ -19,8 +19,8 @@
         <div class="wrapper jumbotron text-center" style="opacity: 0.75; width:85%; margin: 0 auto">
             <div class="div">
             	<header>
-            		<h1 style="font-weight:bold; color:#337ab7">Check Out Your Results</h1>
-            		<h2 style="font-weight:bold; color:#337ab7">Who Is Your New Mate?</h2>
+            		<h1 style="font-weight:bold; color:#337ab7">Need More Fun?</h1>
+            		<h2 style="font-weight:bold; color:#337ab7">Check out who is game to find friends!</h2>
             	</header>
             <hr style="border-top:5px solid #274056; width:30%">	
             </div>
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="col-sm-12">
-                   		<p id="friendObject" class="text-center"></p>
+                   		<p id="friendObject2" class="text-center"></p>
                 	</div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <!-- !!!!!!!!!!!!!!!  MODAL (from Bootstrap) !!!!!!!!!!!!!!! -->
-    <div id="resultsModal" class="modal fade" role="dialog">
+    <div id="resultsModal" class="modal fade" role="dialog"> /<!-- /Figure out how to make this come up at the start of the next page.. this page should show all the firends, and trigger a modal that shows the best fit mate.... -->
         <div class="modal-dialog">
             <!-- Begin Modal Content -->
             <div class="modal-content">
@@ -99,7 +99,6 @@
         };
 
         $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
-            event.preventDefault();
             var currentURL = window.location.origin;
 
             $.get(currentURL +"/api/friends", function(data) {
