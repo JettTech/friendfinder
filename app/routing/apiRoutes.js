@@ -100,6 +100,8 @@ module.exports = function (app) {
 
 		result.json(mostAlike); //This returns the result in a JSON format, to be dsiplayed on the /api/friends page. 
 		//...is it neccessary for the vars/objs to be in this format for access to it's content from other pages??, such as the html docs and data display functionalities???
+		
+		console.log("mostAlike in the JSON format: ");
 		console.log(mostAlike); //testing.. this SHOULD display as a JSON Object (in the raw stringified format)
 
 	});//end of /api/friends app.post
