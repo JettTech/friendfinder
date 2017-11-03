@@ -88,32 +88,46 @@
     </div>
     <script type="text/javascript">
         console.log("CHROME USER: You're inside the friends-results.html file...");
-
-        $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
-            var currentURL = window.location.origin;
-
-            $.get("/api/friends", function(request, result) { //FriendsList is pulled in.. now we just need to parse it...
-                $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data - clears-out the friendobject from displaying previous data from previous submissions...
-                console.log(request);  //returns the full list of the friendsList (including the most recently added...)
-                console.log(result);// returns "success", booleean.
-
-                var friendsList = request;
-                for (var i = 0; i < friendsList.length; i++) {
-                    console.log("I'm inside the for loop...");
-                    var objectDisplay = $("<p>");
-                    objectDisplay.attr("id","friendNumber-" + i);
-                    objectDisplay.append(friendsList[i]);
-                    $("#friendObject").append(objectDisplay);
-                }
-            });
-
-            $.post("/results", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
+        var currentURL = window.location.origin;
+        
+        $.post("/results", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
                 $("#matchName").text(data.name);
                 $("#matchImg").attr("src", data.photo);
 
                 $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
-            });
-        })         
+        });
+         
+
+        var fullList = [];        
+        $.get("/api/friends", function(request, result) { //FriendsList is pulled in.. now we just need to parse it...
+            $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data - clears-out the friendobject from displaying previous data from previous submissions...
+            console.log(request);  //returns the full list of the friendsList (including the most recently added...)
+            console.log(result);// returns "success", booleean.
+            var friendsList = request;
+
+            for (var i = 0; i < friendsList.length; i++) {
+                console.log("I'm inside the friendsList for-loop...");
+                fullList.push(friendsList[i]);
+            }
+
+            console.log("fullList attempt1: ")
+            console.log(fullList);
+        }); 
+
+        $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
+            console.log("fullList attempt2: "); ///THIS IS retrieving the right data... BUT WHY IS IT NOT displaying??!?!?!
+            console.log(fullList);
+
+            for (var i = 0; i < fullList.length; i++) {
+                console.log("I'm inside the fullList for-loop..."); //THIS console.logs... but STILL nothing on the display
+                var objectDisplay = $("<p>");
+                objectDisplay.attr("id","friendNumber-" + i);
+                objectDisplay.append(fullList[i]);
+                $("#friendObject").append(objectDisplay);
+            }
+        });    
+
+            
 
     </script>
 </body>
