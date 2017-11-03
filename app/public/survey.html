@@ -201,7 +201,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div>
-                        <a href="#"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  the button should take us to the "results page, while ALSO posting the data to the /api/friends page..." -->
+                        <a href="/results"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a> <!-- //Replace the "# with the following route: "/results".  the button should take us to the "results page, while ALSO posting the data to the /api/friends page..." -->
 
                          <!-- THE RESULTS href here, refers to the file route that we have esablished in the html routes, and is NOT the exact rile pathway (with the file extention, ie: html or js) itself. As long as the htmlRoutes.js file routing functions are working, AND match the href path provided above, this path SHOULD take us to the respective file, as mentioned in the routing file funcs. -->
 					</div>
@@ -250,7 +250,18 @@
         formReview();
 
         if (!formIsValid){
+            event.preventDefault();
+
             alert("We can't pair you with someone if we don't first know your preferencs!!  \nPlease complete all the questions in the form. \n(^.^)");
+
+            // $.get("/survey", function(request, result) { // !!!!! Why dosen't this "get" method work????
+            //     
+            // })
+
+            console.log("refreshing the page..");
+            loation(reload);
+            //function pageRedirect() {window.location.replace("/survey")};
+            //setTimeout("pageRedirect()", 10000);
         }   
         else if (formIsValid) { //IF the above function, "formReview", returns "formIsValid" to be "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
             console.log("return form is valid"); 
@@ -275,10 +286,10 @@
             var currentURL = window.location.origin;
 
             //BELOW is the AJAX REQUEST to POST the data to the friends.js file
-            $.post(currentURL + "/api/friends", newFriendList, function (data){ //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user... 
-                console.log("The survey lot is posting!!!!");
-                alert("yea!!!!!");
-            }) 
+            $.post(currentURL + "/api/friends", newFriendList, function(data){ //!! WHAT is passing into "DATA" here?  //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user... 
+                console.log("The newfriendlist object is posting!!!!");
+                alert("Yea!!!!! Going to the next page...");
+            }); 
         };
     });        
 </script>
