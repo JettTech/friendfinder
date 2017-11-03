@@ -31,15 +31,15 @@
             <br>
             <div class="row text-center" style="margin: 0 auto">
 				<section class="row form-group text-center">
-					<label for="text-input" class="profile-control col-sm-3 col-form-label text-align" style="padding-right:0px">Name (Required): </label>
+					<label for="text-input" class="col-sm-3 col-form-label text-align" style="padding-right:0px">Name (Required): </label>
 					<div class="col-sm-8">
-						<input id="name-submit" class="form-control" type="text" placeholder="Tell us your name." required>
+						<input id="name-submit" class="profile-control form-control" type="text" placeholder="Tell us your name." required>
 					</div>
 				</section>
 				<section class="row form-group text-center">
-					<label for="url=input" class="profile-control col-sm-3 col-form-label text-center" style="padding-right:0px">Photo (Required): </label>
+					<label for="url=input" class="col-sm-3 col-form-label text-center" style="padding-right:0px">Photo (Required): </label>
 					<div class="col-sm-8">
-						<input id="photo-submit" class="form-control" type="text" placeholder="Show us your profile picture." required>
+						<input id="photo-submit" class="profile-control form-control" type="text" placeholder="Show us your profile picture." required>
 					</div>
 				</section>
 			</div>
@@ -201,7 +201,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div>
-                        <a href="/results"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  the button should take us to the "results page, while ALSO posting the data to the /api/friends page..." -->
+                        <a href="#"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  the button should take us to the "results page, while ALSO posting the data to the /api/friends page..." -->
 
                          <!-- THE RESULTS href here, refers to the file route that we have esablished in the html routes, and is NOT the exact rile pathway (with the file extention, ie: html or js) itself. As long as the htmlRoutes.js file routing functions are working, AND match the href path provided above, this path SHOULD take us to the respective file, as mentioned in the routing file funcs. -->
 					</div>
@@ -226,34 +226,35 @@
         "chosen-select-deselect": { allow_single_deselect: true },
         "chosen-select-no-single": { disable_search_threshold: 10 },
         "chosen-select-no-results": { no_results_text: "Nothing to be found here..." },
-        "chosen-select-width": { width: "95%" },
+        "chosen-select-width": { width: "95%" }
     };
 
     console.log("CHROME USER: You're inside the survey.html file...");
 
 	$("#submit-survey").on("click", function() {
-		
+		var formIsValid = true; //setting this function to lead into a boolean, that acts as a swtich.  When false, then this function will return false...
+
         function formReview() {
-            var formIsValid = true; //setting this function to lead into a boolean, that acts as a swtich.  When false, then this function will return false...
             $(".profile-control").each(function() { //name and pic input verification
-                if($(this).val() === "") {
+                if($(this).val() === "") { //"this" === the context of the currently running function, which in this case would be each one of the tags that has a .profile-control class indivudally, as the loop passes through them....
                     formIsValid = false;
                 }
             });
-
             $(".survey-control").each(function() { //survey question verification
                 if($(this).val() === "") {
                     formIsValid = false;
                 }
-            });
-            console.log("return form is valid"); 
-            return formIsValid; //this function will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
-        };  
-      
-        console.log("form review about to run")   
+            })
+            //this function will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
+        };
         formReview();
-        if (formReview()) { //IF the above function, "formReview", returns "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
-            console.log("since form-review is true (no blanks)... newFriendsList collection...");
+
+        if (!formIsValid){
+            alert("We can't pair you with someone if we don't first know your preferencs!!  \nPlease complete all the questions in the form. \n(^.^)");
+        }   
+        else if (formIsValid) { //IF the above function, "formReview", returns "formIsValid" to be "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
+            console.log("return form is valid"); 
+            console.log("... now the newFriendsList collection will begin.");
             var newFriendList = {
                 name: $("#name-submit").val().trim(),
                 photo: $("#photo-submit").val().trim(),
@@ -270,7 +271,7 @@
                     $("#q10").val().trim()
                 ]
             };
-            console.log(newFriendList); //this console.logs to the Browser (Chrome) Console.
+            console.log(newFriendList); //this console.logs the new user response object ("newFriendList") to the Browser (Chrome) Console.
             var currentURL = window.location.origin;
 
             //BELOW is the AJAX REQUEST to POST the data to the friends.js file

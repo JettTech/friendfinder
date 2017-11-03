@@ -90,11 +90,13 @@ module.exports = function (app) {
 		console.log("\n");
 
 		friendsList.push(newFriendList);
+		console.log("This is the NEW full list of friends: ");
 		console.log(friendsList);
+		console.log("\n");
 
 		result.json(mostAlike); //This returns the result in a JSON format, which is 
 		//neccessary for access from other pages, such as the html docs and data display functionalities
-		
+
 	});//end of app.post
 
 }//end of module.exports
