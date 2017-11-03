@@ -219,7 +219,9 @@
         </div>
     </div>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
+    console.log("CHROME USER: You're inside the survey.html file...");
+    
     //Chosen CC:
     var config = {
         "chosen-select": {},
@@ -228,8 +230,6 @@
         "chosen-select-no-results": { no_results_text: "Nothing to be found here..." },
         "chosen-select-width": { width: "95%" }
     };
-
-    console.log("CHROME USER: You're inside the survey.html file...");
 
 	$("#submit-survey").on("click", function() {
 		var formIsValid = true; //setting this function to lead into a boolean, that acts as a swtich.  When false, then this function will return false...
@@ -293,9 +293,9 @@
                 console.log("The newfriendlist object is posting!!!!");
                 alert("Yea!!!!! Going to the next page...");
             }); 
-            $.post(currentURL + "/results", function(data){
-                console.log("trying to send the data to the '/results' page.");
-            })
+            // $.post(currentURL + "/results", function(data){
+            //     console.log("trying to send the data to the '/results' page.");
+            // })
         };
     });        
 </script>

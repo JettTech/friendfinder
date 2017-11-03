@@ -104,7 +104,9 @@ module.exports = function (app) {
 	});//end of /api/friends app.post
 
 	app.post("/results", function(request, result) {
+		console.log("Node User, this is the mostAlike var, from the /results App.Post: ");
+		//result.parse(mostAlike); --> this is NOT pulliung the JSON verions of the mostAlike, as it is pulling in the Global Variable above, whidh was last pusehd as an array, not JSON-stringified.....
 		console.log(mostAlike);
-	});//end of /results app.post
+			});//end of /results app.post"
 
 }//end of module.exports
