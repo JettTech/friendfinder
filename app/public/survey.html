@@ -201,7 +201,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div>
-                        <a href="#"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  -->
+                        <a href="/results"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  the button should take us to the "results page, while ALSO posting the data to the /api/friends page..." -->
 
                          <!-- THE RESULTS href here, refers to the file route that we have esablished in the html routes, and is NOT the exact rile pathway (with the file extention, ie: html or js) itself. As long as the htmlRoutes.js file routing functions are working, AND match the href path provided above, this path SHOULD take us to the respective file, as mentioned in the routing file funcs. -->
 					</div>
@@ -232,7 +232,8 @@
     console.log("CHROME USER: You're inside the survey.html file...");
 
 	$("#submit-survey").on("click", function() {
-		function formReview() {
+		
+        function formReview() {
             var formIsValid = true; //setting this function to lead into a boolean, that acts as a swtich.  When false, then this function will return false...
             $(".profile-control").each(function() { //name and pic input verification
                 if($(this).val() === "") {
@@ -245,22 +246,14 @@
                     formIsValid = false;
                 }
             });
-            console.log("return form is valid");
-            // return formIsValid;
-          };
-             //this will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
+            console.log("return form is valid"); 
+            return formIsValid; //this function will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
+        };  
       
-        // ======Note about jQuery's "FOR EACH" statement (above):========
-        // =========================================================== 
-        //1.) The $.each() function is not the same as $(selector).each(), which is used to iterate, exclusively, over a jQuery object.
-
-        //2.) !! The  $.each() function can be used to iterate over any collection, whether it is an object or an array. In the case of an array, the callback is passed an array index and a corresponding array value each time. ~!!~(The value can also be accessed through the *this* keyword, but Javascript will !! always wrap the this value as an Object !! even if it is a simple string or number value. !!) ~!!~
-
-        //3.) We can break the $.each() loop at a particular iteration by making the callback function return false. Returning non-false is the same as a continue statement in a for loop; it will skip immediately to the next iteration.
-        console.log("form review about to run")
+        console.log("form review about to run")   
         formReview();
         if (formReview()) { //IF the above function, "formReview", returns "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
-            CONSOLE.LOG("inside formreview")
+            console.log("since form-review is true (no blanks)... newFriendsList collection...");
             var newFriendList = {
                 name: $("#name-submit").val().trim(),
                 photo: $("#photo-submit").val().trim(),
@@ -277,7 +270,7 @@
                     $("#q10").val().trim()
                 ]
             };
-            console.log(newFriendList);
+            console.log(newFriendList); //this console.logs to the Browser (Chrome) Console.
             var currentURL = window.location.origin;
 
             //BELOW is the AJAX REQUEST to POST the data to the friends.js file
@@ -291,3 +284,13 @@
 
 </body>
 </html>
+
+<!-- 
+// ======Note about jQuery's "FOR EACH" statement (above: lines 237-246):========
+        // =========================================================== 
+        //1.) The $.each() function is not the same as $(selector).each(), which is used to iterate, exclusively, over a jQuery object.
+
+        //2.) !! The  $.each() function can be used to iterate over any collection, whether it is an object or an array. In the case of an array, the callback is passed an array index and a corresponding array value each time. ~!!~(The value can also be accessed through the *this* keyword, but Javascript will !! always wrap the this value as an Object !! even if it is a simple string or number value. !!) ~!!~
+
+        //3.) We can break the $.each() loop at a particular iteration by making the callback function return false. Returning non-false is the same as a continue statement in a for loop; it will skip immediately to the next iteration. -->
+        
