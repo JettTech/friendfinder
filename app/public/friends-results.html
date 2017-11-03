@@ -99,30 +99,30 @@
         };
 
         $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
+             // !!! Research more in Boostrap !!!
+
             var currentURL = window.location.origin;
+            $.get("/api/friends", function(request, result) {  //!!!!!!!! TALK TO ANTONIO.. how do I get the friendsList data here???? !!!!
 
-            $.get(currentURL +"/api/friends", function(data) {  //!!!!!!!! TALK TO ANTONIO.. how do I get the friendsList data here???? !!!!
-
-                //console.log(request.body);
-                console.log(data.body); //this SHOULD BE the full list of the friendsList (including the most recently added...)
-                var friendsList = data.body;
-
+                console.log(request);  //returns the full list of the friendsList (including the most recently added...)
+                console.log(result);// returns "success", booleean.
+ 
+                var friendsList = JSON.parse(request);
                 for (var i = 0; i < friendsList.length; i++) {
-                    var objectDisplay = ("<p>");
+                   var objectDisplay = ("<p>");
                     objectDisplay.attr("id","friendNumber-" + i);
                     objectDisplay.append(friendsList[i]);
                     $("#friendObject").append(objectDisplay);
                 }
             });
 
-            $.post(currentURL + "/api/friends", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
+            $.post("/results", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
                 $("#matchName").text(data.name);
                 $("#matchImg").attr("src", data.photo);
 
                 $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
-           
-            })
-        });         
+            });
+        })         
 
     </script>
 </body>

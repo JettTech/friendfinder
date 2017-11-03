@@ -19,6 +19,10 @@ var path = require("path");
 var friendsList = require("../data/friends.js")
 
 
+// Global Vars
+// =========================================================== 
+var mostAlike = [];
+
 // Routes
 // =========================================================== 
 module.exports = function (app) {
@@ -27,7 +31,7 @@ module.exports = function (app) {
 	})	
 
 	app.post("/api/friends", function(request, result) {
-		var mostAlike = [{
+		mostAlike = [{
 			name:"",
 			photo: "",
 			TotalFriendDiff: 100000 //large num that is default; thus triggering any entered result to beat this data...
@@ -94,9 +98,13 @@ module.exports = function (app) {
 		console.log(friendsList);
 		console.log("\n");
 
-		result.json(mostAlike); //This returns the result in a JSON format, which is 
-		//neccessary for access from other pages, such as the html docs and data display functionalities
+		result.json(mostAlike); //This returns the result in a JSON format, to be dsiplayed on the /api/friends page. 
+		//...is it neccessary for the vars/objs to be in this format for access to it's content from other pages??, such as the html docs and data display functionalities???
 
-	});//end of app.post
+	});//end of /api/friends app.post
+
+	app.post("/results", function(request, result) {
+		console.log(mostAlike);
+	});//end of /results app.post
 
 }//end of module.exports
