@@ -201,7 +201,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div>
-                        <a href="/results"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  -->
+                        <a href="#"><button id="submit-survey" type="button" class="btn btn-lg btn-primary">Check Your Mate!</button></a>  <!-- //Replace the "# with the following route: "/results".  -->
 
                          <!-- THE RESULTS href here, refers to the file route that we have esablished in the html routes, and is NOT the exact rile pathway (with the file extention, ie: html or js) itself. As long as the htmlRoutes.js file routing functions are working, AND match the href path provided above, this path SHOULD take us to the respective file, as mentioned in the routing file funcs. -->
 					</div>
@@ -245,7 +245,8 @@
                     formIsValid = false;
                 }
             });
-            return formIsValid;
+            console.log("return form is valid");
+            // return formIsValid;
           };
              //this will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
       
@@ -256,9 +257,10 @@
         //2.) !! The  $.each() function can be used to iterate over any collection, whether it is an object or an array. In the case of an array, the callback is passed an array index and a corresponding array value each time. ~!!~(The value can also be accessed through the *this* keyword, but Javascript will !! always wrap the this value as an Object !! even if it is a simple string or number value. !!) ~!!~
 
         //3.) We can break the $.each() loop at a particular iteration by making the callback function return false. Returning non-false is the same as a continue statement in a for loop; it will skip immediately to the next iteration.
-
+        console.log("form review about to run")
         formReview();
         if (formReview()) { //IF the above function, "formReview", returns "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
+            CONSOLE.LOG("inside formreview")
             var newFriendList = {
                 name: $("#name-submit").val().trim(),
                 photo: $("#photo-submit").val().trim(),
