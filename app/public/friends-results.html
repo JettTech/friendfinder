@@ -21,8 +21,8 @@
         <div class="wrapper jumbotron" style="opacity: 0.75; width:85%; margin: 0 auto">
             <div class="div">
             	<header class="text-center">
-            		<h1 style="font-weight:bold; color:#337ab7">Need More Fun?</h1>
-            		<h2 style="font-weight:bold; color:#337ab7">Check out who is game to find friends!</h2>
+            		<h1 style="font-weight:bold; color:#337ab7">Too social to limit your options?</h1>
+            		<h2 style="font-weight:bold; color:#337ab7">Compare your score with others below.</h2>
             	</header>
             <hr style="border-top:5px solid #274056; width:30%">	
             </div>
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default text-center" data-dismiss="modal">Ready to see other candidates?</button>         
+                    <button type="button" class="btn btn-default text-center" data-dismiss="modal">Ready to see the full list of friends?</button>         
                 </div>
             </div>
             <!-- End Modal Content -->
@@ -136,13 +136,16 @@
         //// THE SCRIPT LOGIC for the "BEST MATCH" MODAL ///
             for (var i = 0; i < mostAlike.length; i++) {
                 console.log("entering into the modal script");
+                console.log(mostAlike[i].name);
+                console.log(mostAlike[i].photo);
+
                 var posting = $("<br/><h2>");
                 posting.append(mostAlike[i].name);
                 $("#matchName").append(posting);
 
                 var postImg = $("<img>");
-                posting.attr("src", mostAlike[i].photo);
-                $("#matchImg").append(posting);
+                postImg.attr("src", mostAlike[i].photo);
+                $("#matchImg").append(postImg);
             }
             $('#bestMatchModal').modal('toggle'); // !!! Research more >> Boostrap
         });    

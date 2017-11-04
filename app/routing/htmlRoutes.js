@@ -19,7 +19,7 @@ var path = require("path");
 // =========================================================== 
 module.exports = function (app) {//app here REFERS to EXPRESS NPM...
 	//app.use(express.static(path.resolve('/../assets')));
-	app.use(express.static("assets"));
+	app.use(express.static("assets")); //this is the static assets folder NECEESSAR to load the background images when accessing the html pages...
 
 	app.get("/survey", function(request, result) {
 		result.sendFile(path.join(__dirname + "/../public/survey.html")); //if the user accesses the app + "/survey",... then get the file "survey.html" through the "/../public/surve.html" path.
