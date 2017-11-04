@@ -4,15 +4,17 @@
 	<title>FriendFinder: Home</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <!-- Chosen -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
     <!-- Boostrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Chosen -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
 	
 	<!-- JQUERY SCRIPT -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container-fluid full" style="background-image: url(/frienshipPic.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 1925px; font-size:22px">
@@ -61,39 +63,40 @@
         </div>
     </div>
     <!-- !!!!!!!!!!!!!!!  MODAL (from Bootstrap) !!!!!!!!!!!!!!! -->
-    <div id="resultsModal" class="modal fade" role="dialog"> /<!-- /Figure out how to make this come up at the start of the next page.. this page should show all the firends, and trigger a modal that shows the best fit mate.... -->
+    <div id="bestMatchModal" class="modal fade" role="dialog"> /<!-- /Figure out how to make this come up at the start of the next page.. this page should show all the firends, and trigger a modal that shows the best fit mate.... -->
         <div class="modal-dialog">
             <!-- Begin Modal Content -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><strong>Check Mate Baby!</strong></h2>
-                    <h3 class="modal">Here is Your Best Match</h3>
+                    <h2 class="modal-title" style="margin: 0 auto;"><strong>Check Mate Baby!</strong></h2>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:right;">&times;</button> <!-- //the UNICODE: "&times;"->>> is the code for the "x" sign. -->
                 </div>
-                <div class="modal-body">
-                    <h2 id="matchName" class="text-center"></h2>
-                    <!-- default img: -->
-                    <img id="matchImg" alt="Your Best Mate's Pic" class="text-center" style="margin: 0 auto; height:46px, width:46px;"> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
+
+                <div class="modal-body text-center">
+                    <h3 class="text-center">Here is Your Best Match</h3>
+                    <p id="matchName" class="text-center"></p>
+                    <img id="matchImg" alt="Your Best Mate's Pic" style="margin: 0 auto; height:46px, width:46px;"> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>         
+                    <button type="button" class="btn btn-default text-center" data-dismiss="modal">Ready to see other candidates?</button>         
                 </div>
             </div>
             <!-- End Modal Content -->
         </div>
     </div>
+    <!-- !!!!!!!!!!!!!!!  end of modal bloc  !!!!!!!!!!!!!!! -->
     <script type="text/javascript">
         console.log("CHROME USER: You're inside the friends-results.html file...");
         var currentURL = window.location.origin;      
-        var fullList = []; 
+        var fullList = [];
+        var mostAlike = [];
         
         $.post("/results", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
-            console.log("data in the /results $.post ajax call is: ");
+            console.log("data in the /results $.get ajax call is: ");
             console.log(data);
 
-            $("#matchName").text(data.name);
-            $("#matchImg").attr("src", data.photo);
-            $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
+            mostAlike = data;
         });
 
         $.get("/api/friends", function(data) {      
@@ -108,22 +111,18 @@
             }
         }); 
 
-
         $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
-
+            //// THE SCRIPT LOGIC for the MAIN PAGE/Background to the modal... ///
             for (var i = 0; i < fullList.length; i++) {
                 var objectDisplay = $("<p>");
                 objectDisplay.attr("id","friendNumber-" + i);
 
                 var textPhoto = $("<br/><h2>");
-                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Img" "height="200px" width="200px">');
+                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Image" "height="200px" width="200px">');
                 objectDisplay.append(textPhoto);                
                 
-                objectDisplay.append("<h2><strong>" + fullList[i].name + "</strong></h3>")
-                // var textName = $("<h3>");
-                // textName.text("Name: ").append(fullList[i].name);
-                // objectDisplay.append(textName);     
-                
+                objectDisplay.append("<h2><strong>" + fullList[i].name + "</strong></h3>")    
+
                 var textScores = $("<h3>");
                 textScores.text("Scores: ");
                 for (var s of fullList[i].scores){
@@ -133,7 +132,28 @@
                 
                 $("#friendObject").append(objectDisplay);
             }
+
+        //// THE SCRIPT LOGIC for the "BEST MATCH" MODAL ///
+            for (var i = 0; i < mostAlike.length; i++) {
+                console.log("entering into the modal script");
+                var posting = $("<br/><h2>");
+                posting.append(mostAlike[i].name);
+                $("#matchName").append(posting);
+
+                var postImg = $("<img>");
+                posting.attr("src", mostAlike[i].photo);
+                $("#matchImg").append(posting);
+            }
+            $('#bestMatchModal').modal('toggle'); // !!! Research more >> Boostrap
         });    
+
+
+        // To trigger the modal window, you need to use a button or a link.
+        // Be sure to include the two data-* attributes:
+        
+        // *data-toggle="modal" opens the modal window
+        // *data-target="#myModal" points to the id of the modal
+        // data-toggle="modal" data-target="#myModal">Open Modal
 
         // NOTE: The ".get" method (below) did not work when referencing BOTH the requesr an result.>>> For the ".get" method, the front end is ONLY trying to access a data result, THUS the keyword "Data" is used instead of the request/result pair.
 // =======================================================================================================================

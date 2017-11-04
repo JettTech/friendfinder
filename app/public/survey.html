@@ -6,14 +6,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Boostrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-     <!-- Chosen -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Chosen -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+     
     <!-- JQUERY SCRIPT -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -276,13 +278,9 @@
 
             alert("We can't pair you with someone if we don't first know your preferencs!!  \nPlease complete all the questions in the form. \n(^.^)");
 
-            // $.get("/survey", function(request, result) { // !!!!! Why dosen't this "get" method work????
-            //     
-            // })
-
             console.log("refreshing the page..");
-            //location(reload); //this doesn't work (AT LEAST not on its own... without the "event.preventDefault()"... WHY?)
 
+            //location(reload); //this doesn't work (AT LEAST not on its own... without the "event.preventDefault()"... WHY?)
             // function pageRedirect() { 
             //     window.location.replace("/survey") //this doesn't work... WHY?
             // };
@@ -307,17 +305,16 @@
                     $("#q10").val().trim()
                 ]
             };
-            console.log(newFriendList); //this console.logs the new user response object ("newFriendList") to the Browser (Chrome) Console.
+            console.log(newFriendList); //this console.logs the new user response object ("newFriendList") to the Browser Console.
+            
             var currentURL = window.location.origin;
-
             //BELOW is the AJAX REQUEST to POST the data to the friends.js file
             $.post(currentURL + "/api/friends", newFriendList, function(data){ //!! WHAT is passing into "DATA" here?  //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user... 
-                console.log("The newfriendlist object is posting!!!!");
-                alert("Yea!!!!! Going to the next page...");
+                console.log("The newfriendlist object is posting from /survey to /results!!!!");
+                alert("We're now finding your new friend. Whohoo!!");
             }); 
-            // $.post(currentURL + "/results", function(data){
-            //     console.log("trying to send the data to the '/results' page.");
-            // })
+
+            //"We're now finding your new friend. Whohoo!!" + "<br><img src='https://media0.giphy.com/media/tJ6dpaGeT8ATK/200.webp#15-grid1'alt='GIF' height='200px' width='200px'>"
         };
     });        
 </script>

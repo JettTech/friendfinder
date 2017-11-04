@@ -24,16 +24,15 @@ var PORT = process.env.PORT || 3600;
  app.use(urlencoderParser) //SEE ABOVE...
 
 // POST "root" gets urlencoded bodies...
-app.post('/', urlencoderParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400)
-  res.send('welcome, ' + req.body.username)
+app.post('/', urlencoderParser, function (request, ressult) {
+  if (!request.body) return result.sendStatus(400)
+  result.send('Welcome, ' + request.body.username)
 })
  
 // POST /api/users gets JSON bodies...
 app.post('/app/public/results', bodyParser.json(), function (req, res) {
   if (!req.body) return res.sendStatus(400) 
   res.send("Hello, this is the post for friends-results page...")
-
 })
 
 
@@ -45,7 +44,7 @@ require("./app/routing/htmlRoutes.js")(app); //IT IS CRITICAL to REMEMBER to INC
 // Listener
 // ===========================================================
 app.listen(PORT, function() {
-	console.log("you are listening on PORT: " + PORT);
+	console.log("You are listening on PORT: " + PORT);
 })
 //app.listen(3000)  --->>>> THIS IS THE BASIC version of the app.listen code ABOVE.
 	// This just instructs the app to listen, but the following code actually displays a message in node

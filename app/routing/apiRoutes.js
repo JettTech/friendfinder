@@ -101,15 +101,17 @@ module.exports = function (app) {
 		result.json(mostAlike); //This returns the result in a JSON format, to be dsiplayed on the /api/friends page. 
 		//...is it neccessary for the vars/objs to be in this format for access to it's content from other pages??, such as the html docs and data display functionalities???
 		
-		console.log("mostAlike in the JSON format: ");
-		console.log(mostAlike); //testing.. this SHOULD display as a JSON Object (in the raw stringified format)
+	// ====================== TESTING ======================
+		//console.log("mostAlike in the JSON format: ");
+		//console.log(mostAlike); //testing.. this SHOULD display as a JSON Object (in the raw stringified format)
 
 	});//end of /api/friends app.post
 
 	app.post("/results", function(request, result) {
 		console.log("Node User, this is the mostAlike var, from the /results App.Post: ");
+		console.log(mostAlike);	
+		result.send(mostAlike);
 		//result.parse(mostAlike); --> this is NOT pulliung the JSON verions of the mostAlike, as it is pulling in the Global Variable above, whidh was last pusehd as an array, not JSON-stringified.....
-		console.log(mostAlike);
 	});//end of /results app.post"
 
 }//end of module.exports
