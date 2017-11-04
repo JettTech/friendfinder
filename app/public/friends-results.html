@@ -16,9 +16,9 @@
 </head>
 <body>
     <div class="container-fluid full" style="background-image: url(/frienshipPic.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 1925px; font-size:22px">
-        <div class="wrapper jumbotron text-center" style="opacity: 0.75; width:85%; margin: 0 auto">
+        <div class="wrapper jumbotron" style="opacity: 0.75; width:85%; margin: 0 auto">
             <div class="div">
-            	<header>
+            	<header class="text-center">
             		<h1 style="font-weight:bold; color:#337ab7">Need More Fun?</h1>
             		<h2 style="font-weight:bold; color:#337ab7">Check out who is game to find friends!</h2>
             	</header>
@@ -26,27 +26,23 @@
             </div>
 
             <br>
-            <br>
             <div class="row">
-                <div class="col-sm-12">
-                   <h3 id="friendObject" class="text-center"></h3>
+                <div class="col-sm-4">
+                   <h3></h3>
+                </div>
+                <div class="col-sm-5">
+                   <h3 id="friendObject"></h3>
+                </div>
+                <div class="col-sm-3">
+                   <h3></h3>
                 </div>
             </div>
             <br>
             <br>
-      <!--       <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-12">
-                   		<p id="friendObject2" class="text-center"></p>
-                	</div>
-                </div>
-            </div>
-            <br>
-            <br>
- -->
+
             <hr style="border-top:5px solid #274056; width:30%">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-12 text-center">
 					<div>
 						<a href="/"><button id="submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-home"></span> Return Home</button></a>
 					</div>
@@ -55,7 +51,7 @@
 
 			<hr style="border-top:5px solid #274056; width:20%">
 			<footer class="footer">
-				<div class="container">
+				<div class="container text-center">
 					<a href="/api/friends" style="color:black">API Friends List (Raw JSON)</a>
 					|
 					<a href="https://github.com/JettTech" style="color:black">My GitHub Repo</a>
@@ -77,7 +73,7 @@
                 <div class="modal-body">
                     <h2 id="matchName" class="text-center"></h2>
                     <!-- default img: -->
-                    <img id="matchImg" alt="Your Best Mate's Pic" class="text-center" style="margin: 0 auto;"> <!-- //Placeholder Src: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
+                    <img id="matchImg" alt="Your Best Mate's Pic" class="text-center" style="margin: 0 auto; height:46px, width:46px;"> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>         
@@ -88,47 +84,100 @@
     </div>
     <script type="text/javascript">
         console.log("CHROME USER: You're inside the friends-results.html file...");
-        var currentURL = window.location.origin;
+        var currentURL = window.location.origin;      
+        var fullList = []; 
         
         $.post("/results", function (data){ //!! WHAT is passing into "DATA" here? //In the POST method, the "newFriendsList" var acts at the "POST REQUEST" from the user...
-                $("#matchName").text(data.name);
-                $("#matchImg").attr("src", data.photo);
+            console.log("data in the /results $.post ajax call is: ");
+            console.log(data);
 
-                $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
+            $("#matchName").text(data.name);
+            $("#matchImg").attr("src", data.photo);
+            $("#resultsModal").modal("toggle"); // !!! Research more in Boostrap !!!
         });
-         
 
-        var fullList = [];        
-        $.get("/api/friends", function(request, result) { //FriendsList is pulled in.. now we just need to parse it...
-            $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data - clears-out the friendobject from displaying previous data from previous submissions...
-            console.log(request);  //returns the full list of the friendsList (including the most recently added...)
-            console.log(result);// returns "success", booleean.
-            var friendsList = request;
+        $.get("/api/friends", function(data) {      
+            //console.log(data);  //returns the full new list of the friendsList
+            console.log(data[0].name); //should return the name value
+
+            $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data.
+            var friendsList = data;
 
             for (var i = 0; i < friendsList.length; i++) {
-                console.log("I'm inside the friendsList for-loop...");
-                fullList.push(friendsList[i]);
+               fullList.push(friendsList[i]);       
             }
-
-            console.log("fullList attempt1: ")
-            console.log(fullList);
         }); 
 
+
         $(document).ready(function(){ //upon loading the document.. modal should pop up!!!!!
-            console.log("fullList attempt2: "); ///THIS IS retrieving the right data... BUT WHY IS IT NOT displaying??!?!?!
-            console.log(fullList);
 
             for (var i = 0; i < fullList.length; i++) {
-                console.log("I'm inside the fullList for-loop..."); //THIS console.logs... but STILL nothing on the display
                 var objectDisplay = $("<p>");
                 objectDisplay.attr("id","friendNumber-" + i);
-                objectDisplay.append(fullList[i]);
+
+                var textPhoto = $("<br/><h2>");
+                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Img" "height="200px" width="200px">');
+                objectDisplay.append(textPhoto);                
+                
+                objectDisplay.append("<h2><strong>" + fullList[i].name + "</strong></h3>")
+                // var textName = $("<h3>");
+                // textName.text("Name: ").append(fullList[i].name);
+                // objectDisplay.append(textName);     
+                
+                var textScores = $("<h3>");
+                textScores.text("Scores: ");
+                for (var s of fullList[i].scores){
+                    textScores.append(fullList[i].scores[s]);
+                }
+                objectDisplay.append(textScores);
+                
                 $("#friendObject").append(objectDisplay);
             }
         });    
 
-            
+        // NOTE: The ".get" method (below) did not work when referencing BOTH the requesr an result.>>> For the ".get" method, the front end is ONLY trying to access a data result, THUS the keyword "Data" is used instead of the request/result pair.
+// =======================================================================================================================
+        // $.get("/api/friends", function(request, result) { //FriendsList is pulled in.. now we just need to parse it...
+        //     $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data - clears-out the friendobject from displaying previous data from previous submissions...
+        //     console.log(request);  //returns the full list of the friendsList (including the most recently added...)
+        //     console.log(result);// returns "success", booleean.
+        //     var friendsList = request;
+
+        //     for (var i = 0; i < friendsList.length; i++) {
+        //         console.log("I'm inside the friendsList for-loop...");
+        //         fullList.push(friendsList[i]);
+        //     }
+
+        //     console.log("fullList attempt1: ")
+        //     console.log(fullList);
+        // }); 
+
+
+        // ANOTHER QUESTION/NOTE: Why does't the belwo attr approch work?
+        // var textPhoto = $("<h3>");
+        //         textPhoto.text("Profile: ");
+        //         textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Photo" height="75px" width="75px">');
+        //         objectDisplay.append(textPhoto);
+        //         // textPhoto.attr({ //WHY doesn't this approch/method work??!!
+        //         //     src: 'fullList[i].photo',
+        //         //     height: '64px',
+        //         //     width: '64px'
+        //         // });
+
+
+        // ANOTHER QUESTION/NOTE: Do we need to include an end tag after the <li> tag appending (below)?
+                // var textScores = $("<h3>");
+                // textScores.text("Scores: ");
+                // textScores.append("<ol style='list-style-position:inside'>")         
+                
+                // for (var s of fullList[i].scores){
+                //     textScores.append("<li>" + fullList[i].scores[s] + "</li>");
+                // }
+                // textScores.append("</ol>")//do we need to reference the closing tag at all??!??! 
+                // objectDisplay.append(textScores);
 
     </script>
 </body>
 </html>
+
+

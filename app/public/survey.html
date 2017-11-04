@@ -31,7 +31,7 @@
             <br>
             <div class="row text-center" style="margin: 0 auto">
 				<section class="row form-group text-center">
-					<label for="text-input" class="col-sm-3 col-form-label text-align" style="padding-right:0px">Name (Required): </label>
+					<label for="text-input" class="col-sm-3 col-form-label text-align" style="padding-right:0px">First and Last Name (Required): </label>
 					<div class="col-sm-8">
 						<input id="name-submit" class="profile-control form-control" type="text" placeholder="Tell us your name." required>
 					</div>
@@ -219,9 +219,31 @@
         </div>
     </div>
 
+    <div id="resultsModal" class="modal fade" role="dialog"> /<!-- /Figure out how to make this come up at the start of the next page.. this page should show all the firends, and trigger a modal that shows the best fit mate.... -->
+        <div class="modal-dialog">
+            <!-- Begin Modal Content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><strong>Check Mate Baby!</strong></h2>
+                    <h3 class="modal">Here is Your Best Match</h3>
+                </div>
+                <div class="modal-body">
+                    <h2 id="matchName" class="text-center"></h2>
+                    <!-- default img: -->
+                    <img id="matchImg" alt="Your Best Mate's Pic" class="text-center" style="margin: 0 auto;"> <!-- //Placeholder Src: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>         
+                </div>
+            </div>
+            <!-- End Modal Content -->
+        </div>
+    </div>    
+
 <script type="text/javascript"> 
     console.log("CHROME USER: You're inside the survey.html file...");
-    
+
     //Chosen CC:
     var config = {
         "chosen-select": {},
@@ -241,7 +263,7 @@
                 }
             });
             $(".survey-control").each(function() { //survey question verification
-                if($(this).val() === "") {
+                if($(this).val() === "" || $(this).val() === "Please Select One Option Below") {
                     formIsValid = false;
                 }
             }) 

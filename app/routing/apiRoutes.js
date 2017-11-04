@@ -34,7 +34,7 @@ module.exports = function (app) {
 		mostAlike = [{
 			name:"",
 			photo: "",
-			TotalFriendDiff: 100000 //large num that is default; thus triggering any entered result to beat this data...
+			TotalFriendDiff: 100000 //large num that is default --> ensures that any entered result to beat this data...
 		}];
 
 		console.log("\nHey Node User, this is the current request.body: ");
