@@ -47,6 +47,11 @@ module.exports = function (app) {
 		
 		function compareFriends() {
 			for (var i = 0; i < friendsList.length; i++) {
+				console.log("friendsList.length = ");
+				console.log(friendsList.length); //to review the length 
+				console.log(friendsList); //to review the contents...
+				console.log("\n");
+
 				if (friendsList[i] !== newFriendList) { //this doesn't allow the list to be compared agains itself....
 					console.log("This is friendsList[i]: ");
 					console.log(friendsList[i]);
