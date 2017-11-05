@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="container-fluid full" style="background-image: url(/frienshipPic.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 1925px; font-size:22px">
-        <div class="wrapper jumbotron" style="opacity: 0.75; width:85%; margin: 0 auto">
+        <div class="wrapper jumbotron" style="opacity: 0.85; width:85%; margin: 0 auto">
             <div class="div">
             	<header class="text-center">
             		<h1 style="font-weight:bold; color:#337ab7">Too social to limit your options?</h1>
@@ -29,13 +29,13 @@
 
             <br>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                    <h3></h3>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-7">
                    <h3 id="friendObject"></h3>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                    <h3></h3>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <div class="modal-body text-center">
                     <h3 class="text-center">Here is Your Best Match</h3>
                     <p id="matchName" class="text-center"></p>
-                    <img id="matchImg" alt="Your Best Mate's Pic" style="margin: 0 auto; height:46px, width:46px;"> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
+                    <p id="matchImg" alt="Your Best Mate's Pic" style="margin: 0 auto; height:200px, width:200px;"></p> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
                 </div>
 
                 <div class="modal-footer">
@@ -118,7 +118,7 @@
                 objectDisplay.attr("id","friendNumber-" + i);
 
                 var textPhoto = $("<br/><h2>");
-                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Image" "height="200px" width="200px">');
+                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Image" "height="400px" width="400px">');
                 objectDisplay.append(textPhoto);                
                 
                 objectDisplay.append("<h2><strong>" + fullList[i].name + "</strong></h3>")    
@@ -143,20 +143,12 @@
                 posting.append(mostAlike[i].name);
                 $("#matchName").append(posting);
 
-                var postImg = $("<img>");
-                postImg.attr("src", mostAlike[i].photo);
-                $("#matchImg").append(postImg);
+                $("#matchImg").append('<img src="' + mostAlike[i].photo + '" alt="Profile Image" "height="400px" width="400px">');
             }
             $('#bestMatchModal').modal('toggle'); // !!! Research more >> Boostrap
         });    
 
-
-        // To trigger the modal window, you need to use a button or a link.
-        // Be sure to include the two data-* attributes:
-        
-        // *data-toggle="modal" opens the modal window
-        // *data-target="#myModal" points to the id of the modal
-        // data-toggle="modal" data-target="#myModal">Open Modal
+        //USE THIS PIC FOR DUMMY PIC DATA: http://c-8oqtgrjgwu46x24efp4-yyyx2efqivkogx2eeqo.g00.dogtime.com/g00/3_c-8fqivkog.eqo_/c-8OQTGRJGWU46x24jvvrx3ax2fx2fefp4-yyy.fqivkog.eqox2fcuugvux2fwrnqcfux2ficnngtax2fiqnfgp-tgvtkgx78gt-fqiu-cpf-rwrrkgux2fiqnfgp-tgvtkgx78gt-fqiu-rwrrkgu-3.lrix3fk32e.octm.kocig.varg_$/$/$/$/$/$
 
         // NOTE: The ".get" method (below) did not work when referencing BOTH the requesr an result.>>> For the ".get" method, the front end is ONLY trying to access a data result, THUS the keyword "Data" is used instead of the request/result pair.
 // =======================================================================================================================
