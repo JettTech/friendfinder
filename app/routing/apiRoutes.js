@@ -66,7 +66,7 @@ module.exports = function (app) {
 						}
 						else  {
 							friendDiff += Math.abs(parseInt(friendsList[i].scores[n]) - parseInt(newFriendScores[n]));
-							console.log("difference: " + friendDiff);
+							console.log("difference (running total): " + friendDiff);
 						}
 					}
 					console.log(friendDiff);
@@ -77,7 +77,7 @@ module.exports = function (app) {
 						mostAlike.push(friendsList[i]);
 						console.log("Here is your New Best MATE: ");
 						console.log(friendsList[i]);
-						console.log("\n\n");
+						console.log("\n");
 					}
 					else if (friendDiff === mostAlike[0].TotalFriendDiff) { //TIED Match....
 						console.log("There's a tie! See you match: ");
