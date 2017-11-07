@@ -84,11 +84,12 @@ module.exports = function (app) {
 						mostAlike.push(friendsList[i]);
 					}
 					else {
-						return console.log("The previous match is still the best...");
+						//return (this will exist the code bloc/)
+						console.log("The previous match is still the best...");
 					}
 				}
 				else { //if the friendsList[i] choice ended up being the same user as the newFriendsList... aka to prevent the user from ever matching his/her -self
-					return compareFriends();
+					return compareFriends(); //this exists out of the code, but then starts again, as the compareFriends is called...
 				}
 			};
 		};
