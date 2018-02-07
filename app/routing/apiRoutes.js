@@ -27,8 +27,8 @@ var mostAlike = [];
 // =========================================================== 
 module.exports = function (app) {
 	app.get("/api/friends", function(request, result) {
-		result.json(friendsList); //REMEMBER TO USE THE JSON here, as this is a RAW JS file, that we sould like to view in a stringified JSON model.
-	})	
+		result.json(friendsList); //This sends over the data/friends.js file with the contents in JSON format, AS THE RESULT//REMEMBER TO USE THE JSON here, as this is a RAW JS file, that we sould like to view in a stringified JSON model.
+	});	
 
 	app.post("/api/friends", function(request, result) {
 		mostAlike = [{

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 1,
+  "short_name": "CheckMate",
+  "name": "Check Boxes, Meet a New Mate",
+  "icons": [
+    {
+      "src": "launcher-icon-1x.png",
+      "type": "assets/checkmate-Logo.png",
+      "sizes": "48x48",
+      "background_color": "#2196F3"
+    },
+    {
+      "src": "launcher-icon-2x.png",
+      "type": "assets/checkmate-Logo.png",
+      "sizes": "96x96",
+      "background_color": "#2196F3"
+    },
+    {
+      "src": "launcher-icon-4x.png",
+      "type": "assets/checkmate-Logo.png",
+      "sizes": "192x192",
+      "background_color": "#2196F3"
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "#2196F3",
+  "start_url": "/?utm_source=homescreen" 
+}

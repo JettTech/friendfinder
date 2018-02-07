@@ -51,8 +51,28 @@ app.listen(PORT, function() {
 	// telling the developer which port is the app is listning to/being run on...
 
 
+
+
+
+
 // Console Testing
 // ===========================================================
 // app.get('/', function (req, res) { //DEFAULT RESPONSE ON THE HOME PAGE.
 //   res.send('Hello World')
 // })
+
+
+
+
+// PERSONAL CODING NOTES:
+// ===========================================================
+// AJAX ===
+// --------------
+// Asynchronous
+// JavaScript
+// And
+// XML /Extensible Mark-up Language 
+
+// NOTE: (The Predecessor to JSON, currently JSON is becoming the new
+//  industry standard;however, XML was integral to the creation of Object Model 
+//  SENDING/RECIVING (POSTING/GETTING) accross the interweb!!**)
