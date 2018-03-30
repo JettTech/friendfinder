@@ -1,20 +1,5 @@
 var friendsList =
 [{
-  "name":"Ahmed Haque",
-  "photo":"https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg",
-  "scores":[
-      2,
-      4,
-      5,
-      3,
-      3,
-      3,
-      2,
-      5,
-      1,
-      2
-    ]
-},{
   "name":"Riley the Cat",
   "photo":"http://www.petmd.com/sites/default/files/what-does-it-mean-when-cat-wags-tail.jpg",
   "scores":[
