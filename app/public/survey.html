@@ -102,7 +102,7 @@
             <br>
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 style="font-size:24px; color:black; font-weight:bold">4. When you hear the words: "La Croix," you think of the sparkling water brand, whose label is French for "The Cross," not the Orange County Soccer Player.</h4>
+                    <h4 style="font-size:24px; color:black; font-weight:bold">4. When you hear the words: "La Croix" you think of the sparkling water brand, whose label is French for "The Cross," not the Orange County Soccer Player.</h4>
                     <select id="q4" class="survey-control chosen-select" dataplaceholder="">
                         <option value="Please Select One Option Below"></option>
                         <option value="1">1 (Are you kidding?)</option>
@@ -192,7 +192,7 @@
             <br>
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 style="font-size:24px; color: black; font-weight:bold">10. Your next trip abroad is not a matter of if, but when..."</h4>
+                    <h4 style="font-size:24px; color: black; font-weight:bold">10. Your next trip abroad is not a matter of if, but when...</h4>
                     <select id="q10" class="survey-control chosen-select" data-placeholder="">
                         <option value="Please Select One Option Below"></option>
                         <option value="1">1 (Are you kidding?)</option>
@@ -271,6 +271,16 @@
                     formIsValid = false;
                 }
             });
+            $("#photo-submit").val(function() {        
+                if($(this).val().includes("@") || $(this).val().includes(".")) {
+                    formIsValid = true;
+                }
+                 else {
+                    formIsValid = false;
+                    alter("From is not valid.");
+                }
+            });
+
             $(".survey-control").each(function() { //survey question verification
                 if($(this).val() === "" || $(this).val() === "Please Select One Option Below") {
                     formIsValid = false;
@@ -329,9 +339,9 @@
 </body>
 </html>
 
-<!-- 
-// ======Note about jQuery's "FOR EACH" statement (above: lines 237-246):========
-        // =========================================================== 
+
+
+    <!-- Note about jQuery's "FOR EACH" statement (above: lines 237-246):======== --> 
         //1.) The $.each() function is not the same as $(selector).each(), which is used to iterate, exclusively, over a jQuery object.
 
         //2.) !! The  $.each() function can be used to iterate over any collection, whether it is an object or an array. In the case of an array, the callback is passed an array index and a corresponding array value each time. ~!!~(The value can also be accessed through the *this* keyword, but Javascript will !! always wrap the this value as an Object !! even if it is a simple string or number value. !!) ~!!~
