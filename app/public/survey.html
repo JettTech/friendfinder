@@ -275,13 +275,13 @@
             });
             $("#photo-submit").val(function() {
                 var photoCheck = $(this).val();        
-                if($(this).val().includes("@") || $(this).val().includes(".")) {
+                if($(this).val().includes("https") && $(this).val().includes(".") ) {
                     formIsValid = true;
                     currentPhoto = $(this).val().trim();
                 }
                  else {
                     formIsValid = false;
-                    alert("From is not valid - missing valid pic url");
+                    alert("Your photo URL is not valid. Please ensure that it includes a secure address, and includes 'https.'");
                 }
             });
 

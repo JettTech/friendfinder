@@ -75,21 +75,6 @@ var friendsList =
       2
     ]
 },{
-"name": "Ron",
-"photo": "https://i0.kym-cdn.com/entries/icons/original/000/023/463/6360103332924270401274957217_Ron.jpg",
-"scores": [
-      1,
-      1,
-      3,
-      3,
-      3,
-      1,
-      1,
-      2,
-      1,
-      2
-    ]
-},{
   "name":"Happy Cassidy",
   "photo":"https://c-8oqtgrjgwu46x24efp4-yyyx2efqivkogx2eeqo.g00.dogtime.com/g00/3_c-8fqivkog.eqo_/c-8OQTGRJGWU46x24jvvrx3ax2fx2fefp4-yyy.fqivkog.eqox2fcuugvux2fwrnqcfux2ficnngtax2fiqnfgp-tgvtkgx78gt-fqiu-cpf-rwrrkgux2fiqnfgp-tgvtkgx78gt-fqiu-rwrrkgu-3.lrix3fk32e.octm.kocig.varg_$/$/$/$/$/$",
   "scores":[
