@@ -31,11 +31,11 @@ module.exports = function (app) {
 	});	
 
 	app.post("/api/friends", function(request, result) {
-		mostAlike = [{
+		mostAlike = {
 			name:"",
 			photo: "",
 			TotalFriendDiff: 100000 //large num that is default --> ensures that any entered result to beat this data...
-		}];
+		};
 
 		console.log("\nHey Node User, this is the current request.body: ");
 		console.log(request.body); //help begin the diagnosis of the rquest body, and thus how to navigate through the issue.
@@ -47,49 +47,84 @@ module.exports = function (app) {
 		
 		function compareFriends() {
 			for (var i = 0; i < friendsList.length; i++) {
-				console.log("friendsList.length = ");
-				console.log(friendsList.length); //to review the length 
-				console.log(friendsList); //to review the contents...
-				console.log("\n");
+				friendDiff = 0; //clear out for next item in friendslist
+				// console.log("friendsList.length = ");
+				// console.log(friendsList.length); //to review the length 
+				// console.log(friendsList); //to review the contents...
+				// console.log("\n");
 
-				if (friendsList[i] !== newFriendList) { //this doesn't allow the list to be compared agains itself....
+				if (friendsList[i] !== newFriendList) { //this doesn't allow the list to be compared against itself....
 					console.log("This is friendsList[i]: ");
 					console.log(friendsList[i]);
 					console.log("\n");
 
 					for (var n = 0; n < friendsList[i].scores.length; n++) {
-						console.log("This is friendsList[i].scores[n]: " + friendsList[i].scores[n]);
-						console.log("This is newFriendScores[n]: " + newFriendScores[n]);	
+						console.log("friendsList[i] = " + friendsList[i].name);
 						
 						if (friendsList[i].scores[n] === newFriendScores[n]) { //using the same var "n" as the number to track through the "newFriendScores" Array, ensures that the same question values are being compared... (thus not comared OUT OF order.);
 							console.log("there was no difference");
+							console.log("difference (running total): " + friendDiff);
 						}
 						else  {
 							friendDiff += Math.abs(parseInt(friendsList[i].scores[n]) - parseInt(newFriendScores[n]));
 							console.log("difference (running total): " + friendDiff);
 						}
 					}
-					console.log(friendDiff);
+					console.log("difference (final total): " + friendDiff);
 					console.log("\n");
-					//
-					if (friendDiff < mostAlike[0].TotalFriendDiff) { //new MATCH!!!!!
-						mostAlike = [];						
-						mostAlike.push(friendsList[i]);
-						console.log("Here is your New Best MATE: ");
-						console.log(friendsList[i]);
-						console.log("\n");
-					}
-					else if (friendDiff === mostAlike[0].TotalFriendDiff) { //TIED Match....
-						console.log("There's a tie! See you match: ");
-						mostAlike.push(friendsList[i]);
+
+					console.log("vs");
+					console.log("current mostAlike friendDiff (object): " + mostAlike.TotalFriendDiff);
+					console.log(typeof mostAlike);
+					console.log(mostAlike.length);
+
+
+					if (mostAlike.length === undefined) {
+						if (friendDiff < mostAlike.TotalFriendDiff) { //if new friendDiff is less than current mostAlike friendDiff, new MATCH!!!!!					
+							mostAlike = friendsList[i];
+							mostAlike.TotalFriendDiff = friendDiff;
+							console.log("TotalFriendDiff =" + mostAlike.TotalFriendDiff);
+							console.log("Here is your New Best MATE: ");
+							console.log(friendsList[i]);
+							console.log("\n");
+							console.log("===================================");
+						}
+						else if (friendDiff === mostAlike.TotalFriendDiff) { //TIED Match....
+							console.log("There's a tie! See your match: ");
+							console.log("===================================");
+							mostAlike = [mostAlike]; //make the var an array...
+							mostAlike.push(friendsList[i]);
+						}
+						else {
+							//return (this will exist the code bloc/)
+							console.log("The previous match is still the best...");
+							console.log("\n");
+							console.log("===================================");
+
+						}
 					}
 					else {
-						//return (this will exist the code bloc/)
-						console.log("The previous match is still the best...");
+						if (friendDiff < mostAlike[0].TotalFriendDiff) { //new MATCH!!!!!
+							mostAlike = friendsList[i];
+							mostAlike.TotalFriendDiff = friendDiff;
+							console.log("Here is your New Best MATE: ");
+							console.log(friendsList[i]);
+							console.log("\n");
+							console.log("===================================");
+						}
+						else if (friendDiff === mostAlike[0].TotalFriendDiff) { //TIED Match....
+							console.log("There's a tie! See your match: ");
+							console.log("===================================");
+							mostAlike.push(friendsList[i]);
+						}
+						else {
+							//return (this will exist the code bloc/)
+							console.log("The previous match is still the best...");
+							console.log("\n");
+							console.log("===================================");
+
+						}
 					}
-				}
-				else { //if the friendsList[i] choice ended up being the same user as the newFriendsList... aka to prevent the user from ever matching his/her -self
-					return compareFriends(); //this exists out of the code, but then starts again, as the compareFriends is called...
 				}
 			};
 		};

@@ -2,7 +2,7 @@
 <html lang="en-us">
 
 <head>
-    <title>FriendFinder: Home</title>
+    <title>Check Mate: Survey</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
@@ -40,13 +40,13 @@
             <br>
             <div class="row text-center" style="margin: 0 auto">
 				<section class="row form-group text-center">
-					<label for="text-input" class="col-sm-3 col-form-label text-align" style="padding-right:0px">First and Last Name (Required): </label>
+					<label for="text-input" class="col-sm-3 col-form-label text-align" style="padding-right:0px">Full Name (Required): </label>
 					<div class="col-sm-8">
 						<input id="name-submit" class="profile-control form-control" type="text" placeholder="Tell us your name." required>
 					</div>
 				</section>
 				<section class="row form-group text-center">
-					<label for="url=input" class="col-sm-3 col-form-label text-center" style="padding-right:0px">Photo (Required): </label>
+					<label for="url=input" class="col-sm-3 col-form-label text-center" style="padding-right:0px">Photo URL (Required): </label>
 					<div class="col-sm-8">
 						<input id="photo-submit" class="profile-control form-control" type="text" placeholder="Show us your profile picture." required>
 					</div>
@@ -263,7 +263,9 @@
     };
 
 	$("#submit-survey").on("click", function() {
-		var formIsValid = true; //setting this function to lead into a boolean, that acts as a swtich.  When false, then this function will return false...
+		var formIsValid = true; //boolean switch
+        var currentPhoto = "";
+        formReview();
 
         function formReview() {
             $(".profile-control").each(function() { //name and pic input verification
@@ -271,13 +273,15 @@
                     formIsValid = false;
                 }
             });
-            $("#photo-submit").val(function() {        
+            $("#photo-submit").val(function() {
+                var photoCheck = $(this).val();        
                 if($(this).val().includes("@") || $(this).val().includes(".")) {
                     formIsValid = true;
+                    currentPhoto = $(this).val().trim();
                 }
                  else {
                     formIsValid = false;
-                    alter("From is not valid.");
+                    alert("From is not valid - missing valid pic url");
                 }
             });
 
@@ -288,27 +292,18 @@
             }) 
             //this function will RETURN "true" IF, and ONLY IF, the value was not changed to false, and thus cleared the review of values on the survey page (aka. All inputs have a value differnt than null/undefined).
         };
-        formReview();
 
-        if (!formIsValid){
+        if (formIsValid === false){
             event.preventDefault();
 
             alert("We can't pair you with someone if we don't first know your preferences!!  \nPlease complete all the questions in the form. \n(^.^)");
-
-            console.log("refreshing the page..");
-
-            //location(reload); //this doesn't work (AT LEAST not on its own... without the "event.preventDefault()"... WHY?)
-            // function pageRedirect() { 
-            //     window.location.replace("/survey") //this doesn't work... WHY?
-            // };
-            // setTimeout("pageRedirect()", 10000);
         }   
         else if (formIsValid) { //IF the above function, "formReview", returns "formIsValid" to be "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
-            console.log("return form is valid"); 
+            console.log("return form is valid");
             console.log("... now the newFriendsList collection will begin.");
             var newFriendList = {
                 name: $("#name-submit").val().trim(),
-                photo: $("#photo-submit").val().trim(),
+                photo: currentPhoto,
                 scores:[
                     $("#q1").val().trim(),
                     $("#q2").val().trim(),
@@ -322,6 +317,7 @@
                     $("#q10").val().trim()
                 ]
             };
+            var photoCheck = $("#photo-submit").val();
             console.log(newFriendList); //this console.logs the new user response object ("newFriendList") to the Browser Console.
             
             var currentURL = window.location.origin;
@@ -342,7 +338,7 @@
 
 
     <!-- Note about jQuery's "FOR EACH" statement (above: lines 237-246):======== --> 
-        //1.) The $.each() function is not the same as $(selector).each(), which is used to iterate, exclusively, over a jQuery object.
+      <!--   //1.) The $.each() function is not the same as $(selector).each(), which is used to iterate, exclusively, over a jQuery object.
 
         //2.) !! The  $.each() function can be used to iterate over any collection, whether it is an object or an array. In the case of an array, the callback is passed an array index and a corresponding array value each time. ~!!~(The value can also be accessed through the *this* keyword, but Javascript will !! always wrap the this value as an Object !! even if it is a simple string or number value. !!) ~!!~
 

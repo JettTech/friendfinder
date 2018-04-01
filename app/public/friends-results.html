@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<title>FriendFinder: Home</title>
+	<title>Check Mate: Results</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -24,7 +24,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-fluid full" style="background-image: url(/friendPicFinal1.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 2000px; font-size:22px">
+    <div class="container-fluid full" style="background-image: url(/friendPicFinal1.jpg); background-position:center; background-repeat:no-repeat; background-size:cover; height: 100%; font-size:22px">
         <div class="wrapper jumbotron text-center" style="opacity: 0.95; width:85%; margin: 0 auto">
             <div class="div">
             	<header class="text-center">
@@ -81,13 +81,13 @@
                 </div>
 
                 <div class="modal-body text-center">
-                    <h3 class="text-center">Here is Your Best Match</h3>
+                    <h3 class="text-center">Your results match well with:</h3>
                     <p id="matchName" class="text-center"></p>
                     <p id="matchImg" alt="Your Best Mate's Pic" style="margin: 0 auto; height:200px, width:200px;"></p> <!-- //Placeholder SRC: src="https://media.licdn.com/media/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg" -->
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default text-center" data-dismiss="modal">Ready to see the full list of friends?</button>         
+                    <button type="button" class="btn btn-default text-center" data-dismiss="modal" style="margin:0 auto;">Ready to see the full list of friends?</button>         
                 </div>
             </div>
             <!-- End Modal Content -->
@@ -109,9 +109,9 @@
 
         $.get("/api/friends", function(data) {      
             //console.log(data);  //returns the full new list of the friendsList
-            console.log(data[0].name); //should return the name value
+            // console.log(data[0].name); //should return the name value of the first friend in friendslist.
 
-            $("#friendObject").val(""); // PREVENTS from displaying DUPLICATE Data.
+            $("#friendObject").val(""); // Clears the friend display block and thereby PREVENTS from displaying DUPLICATE Data.
             var friendsList = data;
 
             for (var i = 0; i < friendsList.length; i++) {
@@ -126,7 +126,7 @@
                 objectDisplay.attr("id","friendNumber-" + i);
 
                 var textPhoto = $("<br/><h2>");
-                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Image" "height="350px" width="350px">');
+                textPhoto.append('<img src="' + fullList[i].photo + '" alt="Profile Image" "height="300px" width="300px">');
                 objectDisplay.append(textPhoto);                
                 
                 objectDisplay.append("<h2><strong>" + fullList[i].name + "</strong></h3>");    
@@ -142,16 +142,32 @@
             }
 
         //// THE SCRIPT LOGIC for the "BEST MATCH" MODAL ///
-            for (var i = 0; i < mostAlike.length; i++) {
+            if( mostAlike.length === undefined) {
                 console.log("entering into the modal script");
-                console.log(mostAlike[i].name);
-                console.log(mostAlike[i].photo);
+                console.log(mostAlike.name);
+                console.log(mostAlike.photo);
 
                 var posting = $("<br/><h2>");
-                posting.append(mostAlike[i].name);
+                posting.append(mostAlike.name);
                 $("#matchName").append(posting);
-                $("#matchImg").append('<img src="' + mostAlike[i].photo + '" alt="Profile Image" "height="400px" width="400px">');
+                $("#matchImg").append('<img src="' + mostAlike.photo + '" alt="Profile Image" "height="400px" width="400px">');
+            } 
+            else {
+                for (var i = 0; i < mostAlike.length; i++) {
+                    console.log("entering into the modal script");
+                    console.log(mostAlike[i].name);
+                    console.log(mostAlike[i].photo);
+
+                    var posting = $("<br/><h2>");
+                    posting.append(mostAlike[i].name);
+                    posting.append("<br/>");
+                    posting.append('<img src="' + mostAlike[i].photo + '" alt="Profile Image" "height="400px" width="400px">');
+                    posting.append("<br/>");
+                    $("#matchName").append(posting);
+                }
             }
+
+
             $('#bestMatchModal').modal('toggle'); // >> Boostrap
         });    
 
