@@ -45,12 +45,13 @@
 						<input id="name-submit" class="profile-control form-control" type="text" placeholder="Tell us your name." required>
 					</div>
 				</section>
-				<section class="row form-group text-center">
+                <!-- this had a problem with the "sercure" hosting by heroku... needs to be integrated separately. -->
+				<!-- <section class="row form-group text-center">
 					<label for="url=input" class="col-sm-3 col-form-label text-center" style="padding-right:0px">Photo URL (Required): </label>
 					<div class="col-sm-8">
 						<input id="photo-submit" class="profile-control form-control" type="text" placeholder="Show us your profile picture." required>
 					</div>
-				</section>
+				</section> -->
 			</div>
 
             <br>
@@ -273,17 +274,17 @@
                     formIsValid = false;
                 }
             });
-            $("#photo-submit").val(function() {
-                var photoCheck = $(this).val();        
-                if($(this).val().includes("https") && $(this).val().includes(".") ) {
-                    formIsValid = true;
-                    currentPhoto = $(this).val().trim();
-                }
-                 else {
-                    formIsValid = false;
-                    alert("Your photo URL is not valid. Please ensure that it includes a secure address, including 'https.'");
-                }
-            });
+            // $("#photo-submit").val(function() {
+            //     var photoCheck = $(this).val();        
+            //     if($(this).val().includes("https") && $(this).val().includes(".") ) {
+            //         formIsValid = true;
+            //         currentPhoto = $(this).val().trim();
+            //     }
+            //      else {
+            //         formIsValid = false;
+            //         alert("Your photo URL is not valid. Please ensure that it includes a secure address, including 'https.'");
+            //     }
+            // });
 
             $(".survey-control").each(function() { //survey question verification
                 if($(this).val() === "" || $(this).val() === "Please Select One Option Below") {
@@ -301,9 +302,12 @@
         else if (formIsValid) { //IF the above function, "formReview", returns "formIsValid" to be "true" -which would only happen if "formIsValid" returns true- then the following function will begin....
             console.log("return form is valid");
             console.log("... now the newFriendsList collection will begin.");
+            
+            var guestPhoto = "http://cdn.onlinewebfonts.com/svg/img_506598.png"
+
             var newFriendList = {
                 name: $("#name-submit").val().trim(),
-                photo: currentPhoto,
+                photo: guestPhoto,
                 scores:[
                     $("#q1").val().trim(),
                     $("#q2").val().trim(),
@@ -317,7 +321,7 @@
                     $("#q10").val().trim()
                 ]
             };
-            var photoCheck = $("#photo-submit").val();
+            //var photoCheck = $("#photo-submit").val();
             console.log(newFriendList); //this console.logs the new user response object ("newFriendList") to the Browser Console.
             
             var currentURL = window.location.origin;
